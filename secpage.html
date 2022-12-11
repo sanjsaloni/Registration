@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Include Bootstrap for styling -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <style>
+        .qr-code {
+            max-width: 200px;
+            margin: 10px;
+        }
+    </style>
+
+    <title>QR Code Generator</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="form-horizontal">
+                    <div class="col-xl-6">
+                        <div class="card-body p-md-5 text-black">
+                            <h3 class="mb-5 text-uppercase">Student registration form</h3>
+        
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="firstname" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example1m">First name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="lastname" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example1n">Last name</label>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="clgname" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example1m1">College Name</label>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+        
+                                <h6 class="mb-0 me-4">Gender: </h6>
+        
+                                <div class="form-check form-check-inline mb-0 me-4">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                        value="option1" />
+                                    <label class="form-check-label" for="femaleGender">Female</label>
+                                </div>
+        
+                                <div class="form-check form-check-inline mb-0 me-4">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                        value="option2" />
+                                    <label class="form-check-label" for="maleGender">Male</label>
+                                </div>
+        
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                                        value="option3" />
+                                    <label class="form-check-label" for="otherGender">Other</label>
+                                </div>
+        
+                            </div> -->
+        
+                            <div class="row">
+                                <div class="form-outline col-md-6 mb-4">
+                                    <input type="text" id="state" class="form-control form-control-lg">
+                                    <label class="form-label" for="form#Example97">State</label>
+        
+        
+                                </div>
+                                <div class="form-outline col-md-6 mb-4">
+                                    <input type="text" id="city" class="form-control form-control-lg">
+                                    <label class="form-label" for="form#Example97">City</label>
+                                </div>
+                            </div>
+        
+                            <div class="form-outline mb-4">
+                                <input type="text" id="emailid" class="form-control form-control-lg" />
+                                <label class="form-label" for="form3Example97">Email ID</label>
+                            </div>
+        
+                            <div class="d-flex justify-content-end pt-3">
+                                <button type="button" class="btn btn-light btn-lg">Reset all</button>
+                                <button type="button" class="btn btn-warning btn-lg ms-2" id="generate">Submit form</button>
+                            </div>
+        
+                          
+        
+                        </div>
+                       
+        
+                    </div>
+                   
+                </div>
+                
+            </div>
+            <div><label for="" id="thanks" style="border:0px; display:flex; justify-content: center; align-items: center; font-size: 23px; font-weight: 20px;"></label></div>
+            <div class="text-center">
+
+                <!-- Get a Placeholder image initially,
+                this will change according to the
+                data entered later -->
+                <img src=
+             "https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0"
+                    class="qr-code img-thumbnail img-responsive" />
+            </div>
+          </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <script>
+        // Function to HTML encode the text
+        // This creates a new hidden element,
+        // inserts the given text into it
+        // and outputs it out as HTML
+        var thanks=document.getElementById('thanks');
+    
+        function htmlEncode(value) {
+            return $('<div/>').text(value)
+                .html();
+        }
+
+        $(function () {
+
+            // Specify an onclick function
+            // for the generate button
+            $('#generate').click(function () {
+                
+
+                // Generate the link that would be
+                // used to generate the QR Code
+                // with the given data
+                let finalURL =
+                        'https://chart.googleapis.com/chart?cht=qr&chl=' +
+                        htmlEncode($('#firstname').val()) + " " + htmlEncode($('#lastname').val()) + " " +
+                        htmlEncode($('#state').val()) + " " +
+                        htmlEncode($('#city').val()) + " " +
+                        htmlEncode($('#clgname').val()) + " " +
+                        htmlEncode($('#emailid').val()) + " " +
+                        '&chs=160x160&chld=L|0'
+                        
+
+                // Replace the src of the image with
+                // the QR code image
+                $('.qr-code').attr('src', finalURL);
+                thanks.innerText("Thanks for registering");
+            });
+        });
+    </script>
+</body>
+
+</html>
